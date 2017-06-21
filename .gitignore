@@ -1,0 +1,16 @@
+.Python
+.uranium
+bin
+include
+lib
+*.egg-info
+dist/
+docs/_build
+.cache
+.coverage
+__pycache__
+*.pyc
+.DS_Store
+access.log
+error.log
+pip-selfcheck.json
