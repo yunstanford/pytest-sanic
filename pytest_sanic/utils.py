@@ -1,5 +1,5 @@
 from aiohttp import ClientSession
-from sanic.server import serve, trigger_events
+from sanic.server import serve, trigger_events, HttpProtocol
 from sanic.app import Sanic
 import socket
 
@@ -113,9 +113,26 @@ class TestClient:
 	a test client class designed for easy testing in Sanic-based Application.
 	"""
 
-	def __init__(self, app, host, loop):
+	def __init__(self, app, loop,
+				 host='127.0.0.1',
+				 protocol=None,
+				 ssl=None,
+				 scheme=None,
+				 **kwargs):
+		if not isinstance(app, Sanic):
+			raise TypeError("app should be a Sanic application.")
 		self._app = app
 		self._loop = loop
+		# we should use '127.0.0.1' in most cases.
+		self._host = host
+		self._ssl = ssl
+		self._scheme = scheme
+		self._protocol = HttpProtocol if protocol is None else protocol
+		self._closed = False
+		self._server = TestServer(
+			        self._app, loop=self._loop,
+					protocol=self._protocol, ssl=self._ssl,
+					scheme=self._scheme)
 
 	@property
 	def app(self):
@@ -137,7 +154,42 @@ class TestClient:
 	def session(self):
 		return self._session
 
+	def make_url(self, uri):
+		return self._server.make_url(uri)
+
 	async def start_server(self):
+		"""
+		Start a TestServer that running Sanic application.
+		"""
 		await self._server.start_server(loop=self.loop)
+
+	async def close(self):
+		"""
+		Close TestClient obj, and cleanup all fixtures created by test client.
+		"""
+		if not self._closed:
+			self._session.close()
+			await self._server.close()
+			self._closed = True
 	
+	def get(self, uri, *args, **kwargs):
+        pass
+
+    def post(self, uri, *args, **kwargs):
+        pass
+
+    def put(self, uri, *args, **kwargs):
+        pass
+
+    def delete(self, uri, *args, **kwargs):
+        pass
+
+    def patch(self, uri, *args, **kwargs):
+        pass
+
+    def options(self, uri, *args, **kwargs):
+        pass
+
+    def head(self, uri, *args, **kwargs):
+        pass
 	
