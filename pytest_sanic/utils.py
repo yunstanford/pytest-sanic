@@ -24,6 +24,8 @@ class TestServer:
                  backlog=100, ssl=None,
                  scheme=None,
                  **kwargs):
+        if not isinstance(app, Sanic):
+            raise TypeError("app should be a Sanic application.")
         self.app = app
         self.loop = loop
         self.host = host
@@ -38,7 +40,7 @@ class TestServer:
             else:
                 self.scheme = "http"
 
-    async start_server(self, loop=None, **kwargs):
+    async start_server(self):
         self.loop = loop
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind((self.host, 0))
@@ -122,7 +124,7 @@ class TestClient:
     a test client class designed for easy testing in Sanic-based Application.
     """
 
-    def __init__(self, app, loop,
+    def __init__(self, app, loop=None,
                  host='127.0.0.1',
                  protocol=None,
                  ssl=None,

@@ -78,8 +78,50 @@ def unused_port()
         return s.getsockname()[1]
 
 
+@pytest.yield_fixture
+def test_server(loop):
+    """
+    Create a TestServer instance based on a Sanic Application.
+
+    test_server(app, **kwargs)
+    """
+
+    server = None
+
+    async def create_server(app, **kwargs):
+        server = TestServer(app, loop=loop)
+        await server.start_server()
+        return server
+
+    yield create_server
+
+    # Close Server
+    if server:
+        loop.run_until_complete(server.close())
+
+
+@pytest.yield_fixture
+def test_client(loop):
+    """
+    Create a TestClient instance for test easy use.
+
+    test_client(app, **kwargs)
+    """
+    client = None
+
+    async def create_client(app, **kwargs):
+        client = TestClient(app, loop=loop)
+        await client.start_server()
+        return client
+
+    yield client
+
+    # Clean up
+    if client:
+        loop.run_until_complete(client.close())
+
+
 # Helper Functions
 
 def _is_coroutine(obj):
     return asyncio.iscoroutinefunction(obj) or inspect.isgeneratorfunction(obj)
-
