@@ -4,6 +4,15 @@ from sanic.app import Sanic
 import socket
 
 
+HEAD = 'HEAD'
+GET = 'GET'
+DELETE = 'DELETE'
+OPTIONS = 'OPTIONS'
+PATCH = 'PATCH'
+POST = 'POST'
+PUT = 'PUT'
+
+
 class TestServer:
 
 	"""
@@ -133,6 +142,10 @@ class TestClient:
 			        self._app, loop=self._loop,
 					protocol=self._protocol, ssl=self._ssl,
 					scheme=self._scheme)
+		# Let's collect responses objects and websocket objects,
+		# and clean up when test is done.
+		self._responses = []
+		self._websockets = []
 
 	@property
 	def app(self):
@@ -168,28 +181,40 @@ class TestClient:
 		Close TestClient obj, and cleanup all fixtures created by test client.
 		"""
 		if not self._closed:
+			for resp in self._responses:
+                resp.close()
+            for ws in self._websockets:
+                await ws.close()
 			self._session.close()
 			await self._server.close()
 			self._closed = True
-	
-	def get(self, uri, *args, **kwargs):
-        pass
 
-    def post(self, uri, *args, **kwargs):
-        pass
+	async def _request(self, method, uri, *args, **kwargs):
+		url = self._server.make_url(uri)
+		response = await self._session.request(
+				method, url, *args, **kwargs
+			)
+		self._responses.append(response)
+		return response
 
-    def put(self, uri, *args, **kwargs):
-        pass
+	async def get(self, uri, *args, **kwargs):
+        return await _request(GET, uri, **args, **kwargs)
 
-    def delete(self, uri, *args, **kwargs):
-        pass
+    async def post(self, uri, *args, **kwargs):
+        return await _request(POST, uri, **args, **kwargs)
 
-    def patch(self, uri, *args, **kwargs):
-        pass
+    async def put(self, uri, *args, **kwargs):
+        return await _request(PUT, uri, **args, **kwargs)
 
-    def options(self, uri, *args, **kwargs):
-        pass
+    async def delete(self, uri, *args, **kwargs):
+        return await _request(DELETE, uri, **args, **kwargs)
 
-    def head(self, uri, *args, **kwargs):
-        pass
+    async def patch(self, uri, *args, **kwargs):
+        return await _request(PATCH, uri, **args, **kwargs)
+
+    async def options(self, uri, *args, **kwargs):
+        return await _request(OPTIONS, uri, **args, **kwargs)
+
+    async def head(self, uri, *args, **kwargs):
+        return await _request(HEAD, uri, **args, **kwargs)
 	
