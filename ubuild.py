@@ -11,6 +11,7 @@ def main(build):
 def test(build):
     build.packages.install("pytest")
     build.packages.install("pytest-cov")
+    build.packages.install("aiohttp")
     build.packages.install("sanic")
     build.packages.install("pytest-asyncio")
     build.packages.install("radon")

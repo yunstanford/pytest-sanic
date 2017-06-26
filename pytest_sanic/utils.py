@@ -40,7 +40,7 @@ class TestServer:
             else:
                 self.scheme = "http"
 
-    async start_server(self):
+    async def start_server(self):
         self.loop = loop
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind((self.host, 0))
@@ -69,11 +69,11 @@ class TestServer:
         # Trigger after_start events
         trigger_events(self.after_server_start, self.loop)
 
-    async close(self):
+    async def close(self):
         """
         Close server.
         """
-        if self.is_running and not self.closed
+        if self.is_running and not self.closed:
             # Trigger before_stop events
             trigger_events(self.before_server_stop, self.loop)
 
@@ -235,9 +235,9 @@ class TestClient:
         return ws_conn
 
     # Context Manager
-    def __aenter__(self):
+    async def __aenter__(self):
         await self.start_server()
         return self
 
-    def __aexit__(self, exc_type, exc_value, traceback):
+    async def __aexit__(self, exc_type, exc_value, traceback):
         await self.close()

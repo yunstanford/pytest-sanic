@@ -27,7 +27,7 @@ def pytest_configure(config):
         factory["uvloop"] = uvloop.new_event_loop
 
     if loop_name:
-        if loop_name not factory:
+        if loop_name not in factory:
             raise ValueError(
                 "{name} is not valid option".format(name=loop_name)
             )
@@ -72,7 +72,7 @@ def pytest_pyfunc_call(pyfuncitem):
 
 
 @pytest.fixture
-def unused_port()
+def unused_port():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind(('127.0.0.1', 0))
         return s.getsockname()[1]
