@@ -19,6 +19,7 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config):
+    global LOOP_INIT
     loop_name = config.getoption('--loop')
     factory = {
         "aioloop": asyncio.new_event_loop,
@@ -42,6 +43,7 @@ def loop():
     Default event loop, you should only use this event loop in your tests.
     """
     loop = LOOP_INIT()
+    asyncio.set_event_loop(loop)
     yield loop
     loop.close()
 
@@ -69,6 +71,14 @@ def pytest_pyfunc_call(pyfuncitem):
         )
     )
     return True
+
+
+def pytest_runtest_setup(item):
+    """
+    append a loop fixture to all test func.
+    """
+    if LOOP_KEY not in item.fixturenames:
+        item.fixturenames.append(LOOP_KEY)
 
 
 @pytest.fixture
