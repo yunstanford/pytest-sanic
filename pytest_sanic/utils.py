@@ -29,19 +29,28 @@ class TestServer:
         self.app = app
         self.loop = loop
         self.host = host
-        self.protocol = protocol
+        self.protocol = protocol or HttpProtocol
         self.backlog = backlog
         self.server = None
         self.port = None
         self.ssl = ssl
-        if self.scheme is None:
+        if scheme is None:
             if self.ssl:
                 self.scheme = "https"
             else:
                 self.scheme = "http"
+        else:
+            self.scheme = scheme
 
-    async def start_server(self):
-        self.loop = loop
+        # Listeners
+        self.before_server_start = None
+        self.after_server_start = None
+        self.before_server_stop = None
+        self.after_server_stop = None
+
+    async def start_server(self, loop=None):
+        if loop:
+            self.loop = loop
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind((self.host, 0))
         self.port = self.socket.getsockname()[1]
@@ -49,9 +58,14 @@ class TestServer:
         # server settings
         server_settings = self.app._helper(
             host=self.host, port=self.port,
-            ssl=self.ssl, sock=self.sock,
+            ssl=self.ssl, sock=self.socket,
             loop=self.loop, protocol=self.protocol,
             backlog=self.backlog, run_async=True)
+
+        # clean up host/port.
+        # host/port should not be used.
+        server_settings['host'] = None
+        server_settings['port'] = None
 
         # Let's get listeners
         self.before_server_start = server_settings.get('before_start', [])
@@ -100,22 +114,6 @@ class TestServer:
                 port=self.port,
                 uri=uri
             )
-
-    @property
-    def before_server_start(self):
-        return self.before_server_start
-
-    @property
-    def after_server_start(self):
-        return self.after_server_start
-
-    @property
-    def before_server_stop(self):
-        return self.before_server_stop
-
-    @property
-    def after_server_stop(self):
-        return self.after_server_stop
 
 
 class TestClient:
