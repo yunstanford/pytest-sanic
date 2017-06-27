@@ -60,17 +60,18 @@ def pytest_pyfunc_call(pyfuncitem):
     """
     Run test coroutines in an event loop.
     """
-    loop = pyfuncitem.funcargs[LOOP_KEY]
-    funcargs = pyfuncitem.funcargs
-    testargs = {}
-    for arg in pyfuncitem._fixtureinfo.argnames:
-        testargs[arg] = funcargs[arg]
-    loop.run_until_complete(
-        loop.create_task(
-            pyfuncitem.obj(**testargs)
+    if _is_coroutine(pyfuncitem.function):
+        loop = pyfuncitem.funcargs[LOOP_KEY]
+        funcargs = pyfuncitem.funcargs
+        testargs = {}
+        for arg in pyfuncitem._fixtureinfo.argnames:
+            testargs[arg] = funcargs[arg]
+        loop.run_until_complete(
+            loop.create_task(
+                pyfuncitem.obj(**testargs)
+            )
         )
-    )
-    return True
+        return True
 
 
 def pytest_runtest_setup(item):
