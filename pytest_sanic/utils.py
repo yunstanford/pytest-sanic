@@ -48,6 +48,10 @@ class TestServer:
         self.before_server_stop = None
         self.after_server_stop = None
 
+        # state
+        self.closed = None
+        self.is_running = False
+
     async def start_server(self, loop=None):
         if loop:
             self.loop = loop
@@ -99,6 +103,7 @@ class TestServer:
             trigger_events(self.after_server_stop, self.loop)
 
             self.closed = True
+            self.is_running = False
             self.port = None
 
     def is_running(self):
