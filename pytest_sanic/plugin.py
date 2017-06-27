@@ -100,7 +100,7 @@ def test_server(loop):
     server = None
 
     async def create_server(app, **kwargs):
-        server = TestServer(app, loop=loop)
+        server = TestServer(app, loop=loop, **kwargs)
         await server.start_server()
         return server
 
@@ -121,11 +121,11 @@ def test_client(loop):
     client = None
 
     async def create_client(app, **kwargs):
-        client = TestClient(app, loop=loop)
+        client = TestClient(app, loop=loop, **kwargs)
         await client.start_server()
         return client
 
-    yield client
+    yield create_client
 
     # Clean up
     if client:

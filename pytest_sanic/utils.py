@@ -1,4 +1,4 @@
-from aiohttp import ClientSession
+from aiohttp import ClientSession, CookieJar
 from sanic.server import serve, trigger_events, HttpProtocol
 from sanic.app import Sanic
 import socket
@@ -147,6 +147,9 @@ class TestClient:
                     self._app, loop=self._loop,
                     protocol=self._protocol, ssl=self._ssl,
                     scheme=self._scheme)
+        cookie_jar = CookieJar(unsafe=True, loop=loop)
+        self._session = ClientSession(loop=loop,
+                                      cookie_jar=cookie_jar)
         # Let's collect responses objects and websocket objects,
         # and clean up when test is done.
         self._responses = []
@@ -158,11 +161,11 @@ class TestClient:
     
     @property
     def host(self):
-        return self._host
+        return self._server.host
     
     @property
     def port(self):
-        return self._port
+        return self._server.port
     
     @property
     def server(self):
@@ -179,7 +182,7 @@ class TestClient:
         """
         Start a TestServer that running Sanic application.
         """
-        await self._server.start_server(loop=self.loop)
+        await self._server.start_server(loop=self._loop)
 
     async def close(self):
         """
@@ -203,25 +206,25 @@ class TestClient:
         return response
 
     async def get(self, uri, *args, **kwargs):
-        return await _request(GET, uri, **args, **kwargs)
+        return await self._request(GET, uri, *args, **kwargs)
 
     async def post(self, uri, *args, **kwargs):
-        return await _request(POST, uri, **args, **kwargs)
+        return await self._request(POST, uri, *args, **kwargs)
 
     async def put(self, uri, *args, **kwargs):
-        return await _request(PUT, uri, **args, **kwargs)
+        return await self._request(PUT, uri, *args, **kwargs)
 
     async def delete(self, uri, *args, **kwargs):
-        return await _request(DELETE, uri, **args, **kwargs)
+        return await self._request(DELETE, uri, *args, **kwargs)
 
     async def patch(self, uri, *args, **kwargs):
-        return await _request(PATCH, uri, **args, **kwargs)
+        return await self._request(PATCH, uri, *args, **kwargs)
 
     async def options(self, uri, *args, **kwargs):
-        return await _request(OPTIONS, uri, **args, **kwargs)
+        return await self._request(OPTIONS, uri, *args, **kwargs)
 
     async def head(self, uri, *args, **kwargs):
-        return await _request(HEAD, uri, **args, **kwargs)
+        return await self._request(HEAD, uri, *args, **kwargs)
 
     async def ws_connect(self, uri, *args, **kwargs):
         """
