@@ -8,7 +8,7 @@ from sanic import response
 collect_ignore = []
 
 if sanic.__version__ <= '0.5.4':
-    collect_ignore.append("test_fixtures")
+    collect_ignore.append("test_client_websocket.py")
 
 
 pytest_plugins = 'pytest_sanic.plugin'
