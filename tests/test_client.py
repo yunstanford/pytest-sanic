@@ -66,3 +66,20 @@ async def test_fixture_test_client_head(test_cli):
     resp_json = await resp.json()
     # HEAD should not have body
     assert resp_json is None
+
+
+async def test_fixture_test_client_close(test_cli):
+    resp = await test_cli.get('/test_get')
+    assert resp.status == 200
+    resp_json = await resp.json()
+    assert resp_json == {"GET": True}
+    await test_cli.close()
+    assert test_cli._closed == True
+
+
+async def test_fixture_test_client_context_manager(app, test_client, loop):
+    async with await test_client(app) as test_cli:
+        resp = await test_cli.get('/test_get')
+        assert resp.status == 200
+        resp_json = await resp.json()
+        assert resp_json == {"GET": True}
