@@ -40,7 +40,7 @@ def app():
     async def test_head(request):
         return response.json({"HEAD": True})
 
-    @app.websocket('/test_ws')
+    @app.websocket("/test_ws")
     async def test_ws(request, ws):
         data = await ws.recv()
         await ws.send(data)
@@ -137,8 +137,9 @@ async def test_fixture_test_client_head(test_cli):
     assert resp_json is None
 
 
-# async def test_fixture_test_client_ws(test_cli):
-#     ws_conn = await test_cli.ws_connect('/test_ws', protocols=(WebSocketProtocol,))
-#     data = 'hello world!'
-#     await ws_conn.send_str(data)
-#     assert await ws_conn.receive() == data
+async def test_fixture_test_client_ws(test_cli):
+    ws_conn = await test_cli.ws_connect('/test_ws')
+    data = 'hello world!'
+    await ws_conn.send_str(data)
+    msg = await ws_conn.receive()
+    assert msg.data == data
