@@ -35,7 +35,7 @@ Quick Start
 
 You don't have to load ``pytest-sanic`` explicitly. ``pytest`` will do it for you. Just write tests like,
 
-.. code::
+.. code-block:: python
 
     async def test_sanic_db_find_by_id(app):
         """
@@ -77,7 +77,7 @@ an unused TCP port on the localhost.
 Creates a TestServer instance by giving a ``Sanic`` application. It's very easy to utilize ``test_server`` to create your `Sanic`
 application server for testing.
 
-.. code::
+.. code-block:: python
 
     @pytest.yield_fixture
     def app():
@@ -99,7 +99,7 @@ application server for testing.
 
 Creates a TestClient instance by giving a ``Sanic`` application. You can simply have a client by using ``test_client``, like
 
-.. code::
+.. code-block:: python
 
     @pytest.yield_fixture
     def app():
