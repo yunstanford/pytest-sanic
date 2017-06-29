@@ -97,18 +97,20 @@ def test_server(loop):
     test_server(app, **kwargs)
     """
 
-    server = None
+    servers = []
 
     async def create_server(app, **kwargs):
         server = TestServer(app, loop=loop, **kwargs)
         await server.start_server()
+        servers.append(server)
         return server
 
     yield create_server
 
     # Close Server
-    if server:
-        loop.run_until_complete(server.close())
+    if servers:
+        for server in servers:
+            loop.run_until_complete(server.close())
 
 
 @pytest.yield_fixture
@@ -118,18 +120,20 @@ def test_client(loop):
 
     test_client(app, **kwargs)
     """
-    client = None
+    clients = []
 
     async def create_client(app, **kwargs):
         client = TestClient(app, loop=loop, **kwargs)
         await client.start_server()
+        clients.append(client)
         return client
 
     yield create_client
 
     # Clean up
-    if client:
-        loop.run_until_complete(client.close())
+    if clients:
+        for client in clients:
+            loop.run_until_complete(client.close())
 
 
 # Helper Functions

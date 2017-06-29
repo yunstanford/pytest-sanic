@@ -2,6 +2,7 @@ import pytest
 from sanic.app import Sanic
 from sanic.websocket import WebSocketProtocol
 from sanic import response
+from aiohttp.web import Application
 
 
 async def test_fixture_test_client_get_properties(test_cli):
@@ -77,9 +78,15 @@ async def test_fixture_test_client_close(test_cli):
     assert test_cli._closed == True
 
 
-async def test_fixture_test_client_context_manager(app, test_client, loop):
+async def test_fixture_test_client_context_manager(app, test_client):
     async with await test_client(app) as test_cli:
         resp = await test_cli.get('/test_get')
         assert resp.status == 200
         resp_json = await resp.json()
         assert resp_json == {"GET": True}
+
+
+async def test_fixture_test_client_raise_exception_for_non_sanic_app(test_client):
+    aiohttp_web = Application()
+    with pytest.raises(TypeError):
+        await test_client(aiohttp_web)

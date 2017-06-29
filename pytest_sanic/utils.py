@@ -106,9 +106,9 @@ class TestServer:
             self.is_running = False
             self.port = None
 
-    def is_running(self):
+    def has_started(self):
         """
-        Check if server is running.
+        Check if server has started.
         """
         return self.server is not None
 
