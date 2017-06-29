@@ -11,6 +11,9 @@ if sanic.__version__ <= '0.5.4':
     collect_ignore.append("test_client_websocket.py")
 
 
+pytest_plugins = 'pytest_sanic.plugin'
+
+
 @pytest.yield_fixture
 def app():
     app = Sanic("test_sanic_app")
