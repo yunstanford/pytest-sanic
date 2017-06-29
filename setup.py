@@ -32,5 +32,8 @@ setup(name='pytest-sanic',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.5',
-      ]
+      ],
+      entry_points={
+        'pytest11': ['sanic = pytest_sanic.plugin'],
+      },
 )
