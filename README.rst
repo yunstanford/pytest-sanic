@@ -33,7 +33,7 @@ Install
 Quick Start
 -----------
 
-You don't have to load `pytest-sanic` explicitly. pytest will do it for you. Just write tests like,
+You don't have to load ``pytest-sanic`` explicitly. ``pytest`` will do it for you. Just write tests like,
 
 .. code::
 
@@ -60,9 +60,9 @@ Some fixtures for easy testing.
 ``loop``
 ~~~~~~~~
 
-`pytest-sanic` creates an event loop and injects it as a fixture. `pytest` will use this event loop to run your `async tests`.
-By default, fixture `loop` is an instance of `asyncio.new_event_loop`. But `uvloop` is also an option for you, by simpy passing
-`--loop uvloop`. Keep mind to just use one single event loop.
+``pytest-sanic`` creates an event loop and injects it as a fixture. ``pytest`` will use this event loop to run your ``async tests``.
+By default, fixture ``loop`` is an instance of `asyncio.new_event_loop`. But `uvloop` is also an option for you, by simpy passing
+``--loop uvloop``. Keep mind to just use one single event loop.
 
 
 ``unused_port``
@@ -74,7 +74,7 @@ an unused TCP port on the localhost.
 ``test_server``
 ~~~~~~~~~~~~~~
 
-Creates a TestServer instance by giving a `Sanic` application. It's very easy to utilize `test_server` to create your `Sanic`
+Creates a TestServer instance by giving a ``Sanic`` application. It's very easy to utilize ``test_server`` to create your `Sanic`
 application server for testing.
 
 .. code::
@@ -97,7 +97,7 @@ application server for testing.
 ``test_client``
 ~~~~~~~~~~~~~~
 
-Creates a TestClient instance by giving a `Sanic` application. You can simply have a client by using `test_client`, like
+Creates a TestClient instance by giving a ``Sanic`` application. You can simply have a client by using ``test_client``, like
 
 .. code::
 
@@ -223,7 +223,7 @@ Creates a TestClient instance by giving a `Sanic` application. You can simply ha
         assert msg.data == data
         await ws_conn.close()
 
-A small note: `test_cli.ws_connect` does not work in `sanic.__version__ <= '0.5.4'`, because of a Sanic bug, but it
+A small note: ``test_cli.ws_connect`` does not work in ``sanic.__version__ <= '0.5.4'``, because of a Sanic bug, but it
 has been fixed in master branch.
 
 
@@ -231,7 +231,7 @@ has been fixed in master branch.
 Development
 -----------
 
-`pytest-sanic` accepts contributions on GitHub, in the form of issues or pull requests.
+``pytest-sanic`` accepts contributions on GitHub, in the form of issues or pull requests.
 
 
 Run unit tests.
