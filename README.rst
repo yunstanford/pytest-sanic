@@ -10,7 +10,7 @@ pytest-sanic
     :target: https://coveralls.io/github/yunstanford/pytest-sanic?branch=master
 
 
-A pytest plugin for `Sanic <http://sanic.readthedocs.io/en/latest/>`. It helps you to test your code asynchronously.
+A pytest plugin for `Sanic <http://sanic.readthedocs.io/en/latest/>`_. It helps you to test your code asynchronously.
 
 This plugin provides:
 
@@ -247,6 +247,6 @@ Reference
 
 Some useful pytest plugins:
 
-* `pytest-tornado <https://github.com/eugeniy/pytest-tornado>`
-* `pytest-asyncio <https://github.com/pytest-dev/pytest-asyncio>`
-* `pytest-aiohttp <https://github.com/aio-libs/pytest-aiohttp>`
+* `pytest-tornado <https://github.com/eugeniy/pytest-tornado>`_
+* `pytest-asyncio <https://github.com/pytest-dev/pytest-asyncio>`_
+* `pytest-aiohttp <https://github.com/aio-libs/pytest-aiohttp>`_
