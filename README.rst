@@ -71,6 +71,12 @@ By default, fixture ``loop`` is an instance of `asyncio.new_event_loop`. But `uv
 an unused TCP port on the localhost.
 
 
+``tmpdir``
+~~~~~~~~~~~~~~
+
+a temporary directory for easy testing if needed.
+
+
 ``test_server``
 ~~~~~~~~~~~~~~
 
