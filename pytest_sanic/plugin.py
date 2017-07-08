@@ -2,6 +2,8 @@ import asyncio
 import pytest
 import inspect
 import socket
+import tempfile
+import os
 from .utils import TestServer, TestClient
 try:
     import uvloop
@@ -134,6 +136,16 @@ def test_client(loop):
     if clients:
         for client in clients:
             loop.run_until_complete(client.close())
+
+
+@pytest.yield_fixture
+def tmpdir():
+    """
+    Create a temporary directory.
+    """
+    tmp = tempfile.mkdtemp()
+    yield tmp
+    os.removedirs(tmp)
 
 
 # Helper Functions
