@@ -99,6 +99,16 @@ application server for testing.
     def sanic_server(loop, app, test_server):
         return loop.run_until_complete(test_server(app))
 
+You can also very easily override this ``loop`` fixture by creating your own, simply like,
+
+.. code-block:: python
+
+    @pytest.yield_fixture
+    def loop():
+        loop = MyEventLoop()
+        yield loop
+        loop.close()
+
 
 ``test_client``
 ~~~~~~~~~~~~~~
