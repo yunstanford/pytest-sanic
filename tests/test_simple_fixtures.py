@@ -1,4 +1,5 @@
 import os
+import pytest
 
 
 def test_fixture_unused_port(unused_port):
@@ -7,3 +8,20 @@ def test_fixture_unused_port(unused_port):
 
 def test_fixture_tmpdir(tmpdir):
     assert os.path.isdir(tmpdir) is True
+
+
+class MyEventLoop:
+
+    def close(self):
+        pass
+
+
+@pytest.yield_fixture
+def loop():
+    loop = MyEventLoop()
+    yield loop
+    loop.close()
+
+
+def test_loop_override(loop):
+    assert isinstance(loop, MyEventLoop) is True
