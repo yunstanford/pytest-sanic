@@ -1,4 +1,5 @@
 import sanic
+import asyncio
 import pytest
 from sanic.app import Sanic
 from sanic.websocket import WebSocketProtocol
@@ -50,6 +51,11 @@ def app():
     async def test_ws(request, ws):
         data = await ws.recv()
         await ws.send(data)
+
+    # TODO: Let's uncomment it once Sanic release master branch
+    # @app.listener('before_server_start')
+    # async def mock_init_db(app, loop):
+    #     await asyncio.sleep(0.01)
 
     yield app
 
