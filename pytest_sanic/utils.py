@@ -1,5 +1,6 @@
 from aiohttp import ClientSession, CookieJar
-from sanic.server import serve, trigger_events, HttpProtocol
+from sanic.server import serve, HttpProtocol
+from inspect import isawaitable
 from sanic.app import Sanic
 import socket
 
@@ -11,6 +12,18 @@ OPTIONS = 'OPTIONS'
 PATCH = 'PATCH'
 POST = 'POST'
 PUT = 'PUT'
+
+
+async def trigger_events(events, loop):
+    """Trigger events (functions or async)
+
+    :param events: one or more sync or async functions to execute
+    :param loop: event loop
+    """
+    for event in events:
+        result = event(loop)
+        if isawaitable(result):
+            await result
 
 
 class TestServer:
@@ -78,14 +91,14 @@ class TestServer:
         self.after_server_stop = server_settings.get('after_stop', [])
 
         # Trigger before_start events
-        trigger_events(self.before_server_start, self.loop)
+        await trigger_events(self.before_server_start, self.loop)
 
         # start server
         self.server = await serve(**server_settings)
         self.is_running = True
 
         # Trigger after_start events
-        trigger_events(self.after_server_start, self.loop)
+        await trigger_events(self.after_server_start, self.loop)
 
     async def close(self):
         """
@@ -93,14 +106,14 @@ class TestServer:
         """
         if self.is_running and not self.closed:
             # Trigger before_stop events
-            trigger_events(self.before_server_stop, self.loop)
+            await trigger_events(self.before_server_stop, self.loop)
 
             # Stop Server
             self.server.close()
             await self.server.wait_closed()
 
             # Trigger after_stop events
-            trigger_events(self.after_server_stop, self.loop)
+            await trigger_events(self.after_server_stop, self.loop)
 
             self.closed = True
             self.is_running = False
