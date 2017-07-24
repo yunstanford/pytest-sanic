@@ -15,7 +15,7 @@ install_requires = [
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='0.1.2',
+      version='0.1.3',
       description='',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
