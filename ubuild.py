@@ -9,15 +9,18 @@ def main(build):
 
 def test(build):
     build.packages.install("pytest")
-    build.packages.install("pytest-cov")
     build.packages.install("aiohttp")
     build.packages.install("sanic")
     build.packages.install("radon")
+    build.packages.install("coverage")
     build.executables.run([
-        "pytest", "./tests",
-        "--cov", "pytest_sanic",
-        "--cov-report", "term-missing",
-    ] + build.options.args)
+        "coverage", "run", "--append",
+        "--source=pytest_sanic",
+        "./bin/pytest", "./tests",
+    ])
+    build.executables.run([
+        "coverage", "report", "-m"
+    ])
 
 
 def distribute(build):
