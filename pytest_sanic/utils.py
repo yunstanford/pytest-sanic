@@ -3,6 +3,7 @@ from sanic.server import serve, HttpProtocol
 from inspect import isawaitable
 from sanic.app import Sanic
 import socket
+import asyncio
 
 
 HEAD = 'HEAD'
@@ -35,7 +36,7 @@ class TestServer:
     def __init__(self, app, host='127.0.0.1',
                  loop=None, protocol=None,
                  backlog=100, ssl=None,
-                 scheme=None,
+                 scheme=None, connections=None,
                  **kwargs):
         if not isinstance(app, Sanic):
             raise TypeError("app should be a Sanic application.")
@@ -46,6 +47,7 @@ class TestServer:
         self.backlog = backlog
         self.server = None
         self.port = None
+        self.connections = connections if connections else set()
         self.ssl = ssl
         if scheme is None:
             if self.ssl:
@@ -93,6 +95,9 @@ class TestServer:
         # Trigger before_start events
         await trigger_events(self.before_server_start, self.loop)
 
+        # Connections
+        server_settings["connections"] = self.connections
+
         # start server
         self.server = await serve(**server_settings)
         self.is_running = True
@@ -111,6 +116,18 @@ class TestServer:
             # Stop Server
             self.server.close()
             await self.server.wait_closed()
+
+            for connection in self.connections:
+                connection.close_if_idle()
+
+            # Force close connections
+            coros = []
+            for conn in self.connections:
+                if hasattr(conn, "websocket") and conn.websocket:
+                    coros.append(conn.websocket.close_connection(force=True))
+                else:
+                    conn.close()
+            await asyncio.gather(*coros, loop=self.loop)
 
             # Trigger after_stop events
             await trigger_events(self.after_server_stop, self.loop)
