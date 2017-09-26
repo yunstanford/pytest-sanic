@@ -7,6 +7,7 @@ def main(build):
     build.packages.install(".", develop=True)
 
 
+@task_requires("main")
 def test(build):
     build.packages.install("pytest")
     build.packages.install("aiohttp")
