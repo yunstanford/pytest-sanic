@@ -162,7 +162,8 @@ class TestClient:
                     scheme=self._scheme)
         cookie_jar = CookieJar(unsafe=True, loop=loop)
         self._session = ClientSession(loop=loop,
-                                      cookie_jar=cookie_jar)
+                                      cookie_jar=cookie_jar,
+                                      **kwargs)
         # Let's collect responses objects and websocket objects,
         # and clean up when test is done.
         self._responses = []
