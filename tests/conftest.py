@@ -52,10 +52,9 @@ def app():
         data = await ws.recv()
         await ws.send(data)
 
-    # TODO: Let's uncomment it once Sanic release master branch
-    # @app.listener('before_server_start')
-    # async def mock_init_db(app, loop):
-    #     await asyncio.sleep(0.01)
+    @app.listener('before_server_start')
+    async def mock_init_db(app, loop):
+        await asyncio.sleep(0.01)
 
     yield app
 
