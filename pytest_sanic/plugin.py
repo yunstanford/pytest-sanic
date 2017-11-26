@@ -78,7 +78,7 @@ def pytest_runtest_setup(item):
     """
     append a loop fixture to all test func.
     """
-    if LOOP_KEY not in item.fixturenames:
+    if hasattr(item, 'fixturenames') and LOOP_KEY not in item.fixturenames:
         item.fixturenames.append(LOOP_KEY)
 
 
