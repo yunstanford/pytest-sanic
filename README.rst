@@ -20,6 +20,11 @@ This plugin provides:
 * test_server for Sanic application
 
 
+You can find out more here:
+
+http://pytest-sanic.readthedocs.io/en/latest/
+
+
 -------
 Install
 -------
