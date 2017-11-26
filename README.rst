@@ -236,9 +236,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
 
 small notes:
 
-* ``test_cli.ws_connect`` does not work in ``sanic.__version__ <= '0.5.4'``, because of a Sanic bug, but it
-has been fixed in master branch.
-* ``websockets.__version__ >= '4.0'`` has broken websockets in ``sanic.__version__ <= '0.6.0'``, but it has been fixed in `master <https://github.com/channelcat/sanic/commit/bca1e084116335fd939c2ee226070f0428cd5de8>`_.
+``test_cli.ws_connect`` does not work in ``sanic.__version__ <= '0.5.4'``, because of a Sanic bug, but it
+has been fixed in master branch. And ``websockets.__version__ >= '4.0'`` has broken websockets in ``sanic.__version__ <= '0.6.0'``, but it has been fixed in `master <https://github.com/channelcat/sanic/commit/bca1e084116335fd939c2ee226070f0428cd5de8>`_.
 
 
 ----
