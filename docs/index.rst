@@ -54,6 +54,7 @@ Contents:
    :maxdepth: 2
 
    installation
+   example
    fixtures
    tips
    development
