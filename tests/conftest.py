@@ -1,5 +1,4 @@
 import sanic
-import websockets
 import asyncio
 import pytest
 from sanic.app import Sanic
@@ -9,7 +8,7 @@ from sanic import response
 
 collect_ignore = []
 
-if sanic.__version__ <= '0.5.4' or websockets.__version__ < '4.0':
+if sanic.__version__ <= '0.6.0':
     collect_ignore.append("test_client_websocket.py")
 
 
