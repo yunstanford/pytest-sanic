@@ -224,7 +224,7 @@ class TestClient:
                 resp.close()
             for ws in self._websockets:
                 await ws.close()
-            self._session.close()
+            await self._session.close()
             await self._server.close()
             self._closed = True
 
