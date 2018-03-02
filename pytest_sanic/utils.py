@@ -101,6 +101,7 @@ class TestServer:
         # start server
         self.server = await serve(**server_settings)
         self.is_running = True
+        self.app.is_running = True
 
         # Trigger after_start events
         await trigger_events(self.after_server_start, self.loop)
@@ -134,6 +135,7 @@ class TestServer:
 
             self.closed = True
             self.is_running = False
+            self.app.is_running = False
             self.port = None
 
     def has_started(self):

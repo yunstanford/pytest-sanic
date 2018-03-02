@@ -90,3 +90,7 @@ async def test_fixture_test_client_raise_exception_for_non_sanic_app(test_client
     aiohttp_web = Application()
     with pytest.raises(TypeError):
         await test_client(aiohttp_web)
+
+
+async def test_fixture_test_client_app_is_running(test_cli):
+    assert test_cli.app.is_running == True
