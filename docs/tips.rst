@@ -13,4 +13,4 @@ Tips
 * Websockets > 4.0 has broken websockets in ``sanic.__version__ <= '0.6.0'``, but it has been fixed in `master <https://github.com/channelcat/sanic/commit/bca1e084116335fd939c2ee226070f0428cd5de8>`_
 
 
-Also, feel free to create issue if you have any question.
+Feel free to create issue if you have any question. You can also check out `closed issues <https://github.com/yunstanford/pytest-sanic/issues?q=is%3Aclosed>`_
