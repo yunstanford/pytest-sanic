@@ -78,6 +78,14 @@ async def test_fixture_test_client_close(test_cli):
     assert test_cli._closed == True
 
 
+async def test_fixture_test_client_passing_headers(test_cli):
+    headers={"authorization": "Basic bG9naW46cGFzcw=="}
+    resp = await test_cli.get('/test_passing_headers', headers=headers)
+    assert resp.status == 200
+    resp_json = await resp.json()
+    assert resp_json["headers"]["authorization"] == headers["authorization"]
+
+
 async def test_fixture_test_client_context_manager(app, test_client):
     async with await test_client(app) as test_cli:
         resp = await test_cli.get('/test_get')

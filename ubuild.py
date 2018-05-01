@@ -18,7 +18,7 @@ def test(build):
         "coverage", "run", "--append",
         "--source=pytest_sanic",
         "./bin/pytest", "./tests",
-    ])
+    ] + build.options.args)
     build.executables.run([
         "coverage", "report", "-m"
     ])
