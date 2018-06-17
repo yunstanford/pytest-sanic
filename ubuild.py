@@ -14,6 +14,7 @@ def test(build):
     build.packages.install("sanic")
     build.packages.install("radon")
     build.packages.install("coverage")
+    build.packages.install("asynctest")
     build.executables.run([
         "coverage", "run", "--append",
         "--source=pytest_sanic",

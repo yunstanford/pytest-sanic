@@ -3,6 +3,12 @@ import pytest
 import inspect
 import socket
 from .utils import TestServer, TestClient
+
+try:
+    from async_generator import isasyncgenfunction
+except ImportError:
+    from inspect import isasyncgenfunction
+
 try:
     import uvloop
 except:  # pragma: no cover
@@ -74,6 +80,75 @@ def pytest_pyfunc_call(pyfuncitem):
         return True
 
 
+def pytest_fixture_setup(fixturedef):
+    """
+    Allow fixtures to be coroutines. Run coroutine fixtures in an event loop.
+    """
+    if isasyncgenfunction(fixturedef.func):
+        func = fixturedef.func
+
+        strip_request = False
+        if 'request' not in fixturedef.argnames:
+            fixturedef.argnames += ('request',)
+            strip_request = True
+
+        def wrapper(*args, **kwargs):
+            request = kwargs['request']
+
+            if strip_request:
+                del kwargs['request']
+
+            if 'loop' not in request.fixturenames:
+                raise Exception(
+                    "Asynchronous fixtures must depend on the 'loop' fixture or "
+                    "be used in tests depending from it."
+                )
+
+            loop = request.getfixturevalue('loop')
+            # for async generators, we need to advance the generator once,
+            # then advance it again in a finalizer
+            gen = func(*args, **kwargs)
+
+            def finalizer():
+                try:
+                    return loop.run_until_complete(gen.__anext__())
+                except StopAsyncIteration:  # NOQA
+                    pass
+
+            request.addfinalizer(finalizer)
+            return loop.run_until_complete(gen.__anext__())
+
+        fixturedef.func = wrapper
+
+    elif asyncio.iscoroutinefunction(fixturedef.func):
+        func = fixturedef.func
+
+        strip_request = False
+        if 'request' not in fixturedef.argnames:
+            fixturedef.argnames += ('request',)
+            strip_request = True
+
+        def wrapper(*args, **kwargs):
+            request = kwargs['request']
+            if 'loop' not in request.fixturenames:
+                raise Exception(
+                    "Asynchronous fixtures must depend on the 'loop' fixture or "
+                    "be used in tests depending from it."
+                )
+
+            loop = request.getfixturevalue('loop')
+
+            if strip_request:
+                del kwargs['request']
+
+            return loop.run_until_complete(func(*args, **kwargs))
+
+        fixturedef.func = wrapper
+
+    else:
+        return
+
+
 def pytest_runtest_setup(item):
     """
     append a loop fixture to all test func.
@@ -137,6 +212,5 @@ def test_client(loop):
 
 
 # Helper Functions
-
 def _is_coroutine(obj):
     return asyncio.iscoroutinefunction(obj) or inspect.isgeneratorfunction(obj)

@@ -10,6 +10,7 @@ install_requires = [
     'pytest',
     'sanic',
     'aiohttp',
+    'async_generator',
 ]
 
 tests_require = []
