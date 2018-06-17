@@ -11,7 +11,7 @@ class MyEventLoop:
         pass
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def loop():
     loop = MyEventLoop()
     yield loop

@@ -15,7 +15,7 @@ if sanic.__version__ <= '0.6.0':
 # pytest_plugins = 'pytest_sanic.plugin'
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def app():
     app = Sanic("test_sanic_app")
 

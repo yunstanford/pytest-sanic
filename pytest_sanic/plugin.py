@@ -43,7 +43,7 @@ def pytest_configure(config):
         LOOP_INIT = factory["aioloop"]
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def loop():
     """
     Default event loop, you should only use this event loop in your tests.
@@ -164,7 +164,7 @@ def unused_port():
         return s.getsockname()[1]
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def test_server(loop):
     """
     Create a TestServer instance based on a Sanic Application.
@@ -188,7 +188,7 @@ def test_server(loop):
             loop.run_until_complete(server.close())
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def test_client(loop):
     """
     Create a TestClient instance for test easy use.
