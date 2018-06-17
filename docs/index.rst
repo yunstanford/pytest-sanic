@@ -21,6 +21,7 @@ This plugin provides:
 
 * very easy testing with async coroutines
 * common and useful fixtures
+* asynchronous fixture support
 * test_client for Sanic application
 * test_server for Sanic application
 

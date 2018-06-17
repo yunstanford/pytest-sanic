@@ -16,6 +16,7 @@ This plugin provides:
 
 * very easy testing with async coroutines
 * common and useful fixtures
+* asynchronous fixture support
 * test_client for Sanic application
 * test_server for Sanic application
 
@@ -54,6 +55,20 @@ You don't have to load ``pytest-sanic`` explicitly. ``pytest`` will do it for yo
         doc = await app.db["players"].find_by_id("123")
         assert doc.name == "Kobe Bryant"
         assert doc.team == "Lakers"
+
+
+--------------------
+asynchronous fixture
+--------------------
+
+``pytest-sanic`` also supports asynchronous fixtures, just writes them like common pytest fixtures.
+
+.. code-block:: python
+
+    @pytest.fixture
+    async def async_fixture_sleep():
+        await asyncio.sleep(0.1)
+        return "sleep..."
 
 
 --------

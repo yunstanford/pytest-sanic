@@ -1,7 +1,19 @@
 import pytest
 import asynctest
+import asyncio
 from unittest import mock
 from async_generator import async_generator, yield_
+
+
+@pytest.fixture
+async def async_gen_fixture_sleep():
+    await asyncio.sleep(0.1)
+    yield 'a value'
+
+
+@pytest.fixture
+async def async_fixture_sleep():
+    return await asyncio.sleep(0.1)
 
 
 @pytest.fixture
