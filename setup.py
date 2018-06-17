@@ -16,7 +16,7 @@ install_requires = [
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='0.1.9',
+      version='0.1.10',
       description='',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
@@ -25,7 +25,7 @@ setup(name='pytest-sanic',
       packages=find_packages(),
       install_requires=install_requires,
       classifiers=[
-          'Development Status :: 3 - Alpha',
+          'Development Status :: 5 - Production/Stable',
           'Operating System :: MacOS',
           'Operating System :: POSIX :: Linux',
           'Topic :: System :: Software Distribution',
