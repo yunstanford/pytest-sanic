@@ -8,7 +8,7 @@ from async_generator import async_generator, yield_
 @pytest.fixture
 async def async_gen_fixture_sleep():
     await asyncio.sleep(0.1)
-    yield 'a value'
+    yield_('a value')
 
 
 @pytest.fixture
