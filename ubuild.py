@@ -15,7 +15,7 @@ def test(build):
     build.packages.install("radon")
     build.packages.install("coverage")
     build.packages.install("asynctest")
-    build.packages.install("websockets", version=">=5.0,<6.0")
+    build.packages.install("websockets", version=">=5.0")
     build.executables.run([
         "coverage", "run", "--append",
         "--source=pytest_sanic",
