@@ -54,7 +54,7 @@ def app():
 
     @app.route("/test_passing_headers", methods=['GET'])
     async def test_get(request):
-        return response.json({"headers": request.headers})
+        return response.json({"headers": dict(request.headers)})
 
     @app.listener('before_server_start')
     async def mock_init_db(app, loop):
