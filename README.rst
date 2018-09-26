@@ -57,6 +57,30 @@ You don't have to load ``pytest-sanic`` explicitly. ``pytest`` will do it for yo
         assert doc.team == "Lakers"
 
 
+Here's much more realistic & useful example,
+
+.. code-block:: python
+
+    from .app import create_app
+
+    @pytest.yield_fixture
+    def app():
+        app = create_app(test_config, **params)
+        yield app
+
+    @pytest.fixture
+    def test_cli(loop, app, test_client):
+        return loop.run_until_complete(test_client(app))
+
+    async def test_index(test_cli):
+        resp = await test_cli.get('/')
+        assert resp.status == 200
+
+    async def test_player(test_cli):
+        resp = await test_cli.get('/player')
+        assert resp.status == 200
+
+
 --------------------
 asynchronous fixture
 --------------------
