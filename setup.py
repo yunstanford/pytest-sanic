@@ -8,7 +8,6 @@ README_PATH = os.path.join(base, "README.rst")
 
 install_requires = [
     'pytest',
-    'sanic',
     'aiohttp',
     'async_generator',
 ]
@@ -16,7 +15,7 @@ install_requires = [
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='0.1.13',
+      version='0.1.14',
       description='',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
@@ -33,6 +32,8 @@ setup(name='pytest-sanic',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.5',
+          'Programming Language :: Python :: 3.6',
+          'Programming Language :: Python :: 3.7',
       ],
       entry_points={
         'pytest11': ['sanic = pytest_sanic.plugin'],
