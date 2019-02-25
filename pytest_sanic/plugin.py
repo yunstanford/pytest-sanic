@@ -2,6 +2,7 @@ import asyncio
 import pytest
 import inspect
 import socket
+import warnings
 from .utils import TestServer, TestClient
 
 try:
@@ -189,12 +190,33 @@ def test_server(loop):
 
 
 @pytest.fixture
-def test_client(loop):
+def sanic_client(loop):
     """
     Create a TestClient instance for test easy use.
 
     test_client(app, **kwargs)
     """
+    clients = []
+
+    async def create_client(app, **kwargs):
+        client = TestClient(app, loop=loop, **kwargs)
+        await client.start_server()
+        clients.append(client)
+        return client
+
+    yield create_client
+
+    # Clean up
+    if clients:
+        for client in clients:
+            loop.run_until_complete(client.close())
+
+
+@pytest.fixture
+def test_client(loop):
+    warnings.warn("test_client is deprecated, please use sanic_client instead.",
+                  DeprecationWarning,
+                  stacklevel=2)
     clients = []
 
     async def create_client(app, **kwargs):
