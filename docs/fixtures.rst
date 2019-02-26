@@ -58,7 +58,14 @@ You can also very easily override this ``loop`` fixture by creating your own, si
 test_client
 -----------
 
-Creates a TestClient instance by giving a ``Sanic`` application. You can simply have a client by using ``test_client``, like
+``test_client`` has been deprecated, please use `sanic_client` instead, check out `issue <https://github.com/yunstanford/pytest-sanic/issues/22>`_ for more context.
+
+
+------------
+sanic_client
+------------
+
+Creates a TestClient instance by giving a ``Sanic`` application. You can simply have a client by using ``sanic_client``, like
 
 .. code-block:: python
 
@@ -102,8 +109,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         yield app
 
     @pytest.fixture
-    def test_cli(loop, app, test_client):
-        return loop.run_until_complete(test_client(app, protocol=WebSocketProtocol))
+    def test_cli(loop, app, sanic_client):
+        return loop.run_until_complete(sanic_client(app, protocol=WebSocketProtocol))
 
     #########
     # Tests #

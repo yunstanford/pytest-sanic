@@ -22,7 +22,7 @@ This plugin provides:
 * very easy testing with async coroutines
 * common and useful fixtures
 * asynchronous fixture support
-* test_client for Sanic application
+* test_client/sanic_client for Sanic application
 * test_server for Sanic application
 
 
@@ -60,8 +60,8 @@ Here's much more realistic & useful example,
         yield app
 
     @pytest.fixture
-    def test_cli(loop, app, test_client):
-        return loop.run_until_complete(test_client(app))
+    def test_cli(loop, app, sanic_client):
+        return loop.run_until_complete(sanic_client(app))
 
     async def test_index(test_cli):
         resp = await test_cli.get('/')
