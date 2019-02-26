@@ -15,12 +15,12 @@ install_requires = [
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='0.1.15',
-      description='',
+      version='1.0.0',
+      description='a pytest plugin for Sanic',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
       author_email='yunxu1992@gmail.com',
-      url='',
+      url='https://github.com/yunstanford/pytest-sanic/',
       packages=find_packages(),
       install_requires=install_requires,
       classifiers=[
