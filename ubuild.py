@@ -32,8 +32,8 @@ def distribute(build):
     build.packages.install("twine")
     build.executables.run([
         "python", "setup.py",
-        "sdist", "bdist_wheel", "--universal", "upload",
+        "sdist", "bdist_wheel",
     ])
     build.executables.run([
-        "twine", "upload", "dist/*"
+        "twine", "upload", "dist/*", "--verbose",
     ])

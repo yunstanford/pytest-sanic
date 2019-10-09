@@ -143,13 +143,13 @@ By default, fixture ``loop`` is an instance of `asyncio.new_event_loop`. But `uv
 
 
 ``unused_port``
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 an unused TCP port on the localhost.
 
 
 ``test_server``
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 Creates a TestServer instance by giving a ``Sanic`` application. It's very easy to utilize ``test_server`` to create your `Sanic`
 application server for testing.
@@ -181,13 +181,13 @@ You can also very easily override this ``loop`` fixture by creating your own, si
         loop.close()
 
 ``test_client``
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 
 ``test_client`` has been deprecated, please use `sanic_client` instead, check out `issue <https://github.com/yunstanford/pytest-sanic/issues/22>`_ for more context.
 
 
 ``sanic_client``
-~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 Creates a TestClient instance by giving a ``Sanic`` application. You can simply have a client by using ``sanic_client``, like
 
@@ -330,7 +330,7 @@ Tips
 * ``test_cli.ws_connect`` does not work in ``sanic.__version__ <= '0.5.4'``, because of a Sanic bug, but it has been fixed in master branch.
 * `Importing app has loop already running <https://github.com/yunstanford/pytest-sanic/issues/1>`_ when you have `db_init` listeners.
 * `Incorrect coverage report <https://github.com/pytest-dev/pytest-cov/issues/117>`_ with ``pytest-cov``, but we can have workarounds for this issue, it's a pytest loading plugin problem essentially.
-* Websockets > 4.0 has broken websockets in ``sanic.__version__ <= '0.6.0'``, but it has been fixed in `master <https://github.com/channelcat/sanic/commit/bca1e084116335fd939c2ee226070f0428cd5de8>`_
+* Websockets > 4.0 has broken websockets in ``sanic.__version__ <= '0.6.0'``, but it has been fixed in `this commit <https://github.com/channelcat/sanic/commit/bca1e084116335fd939c2ee226070f0428cd5de8>`_
 
 
 Feel free to create issue if you have any question. You can also check out `closed issues <https://github.com/yunstanford/pytest-sanic/issues?q=is%3Aclosed>`_
