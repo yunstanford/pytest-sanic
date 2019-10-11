@@ -26,7 +26,7 @@ def test(build):
     ])
 
 
-def distribute(build):
+def publish(build):
     """ distribute the uranium package """
     build.packages.install("wheel")
     build.packages.install("twine")
