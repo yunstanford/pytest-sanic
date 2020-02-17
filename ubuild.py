@@ -18,7 +18,7 @@ def test(build):
     build.executables.run([
         "coverage", "run", "--append",
         "--source=pytest_sanic",
-        os.path.join(build.root, "bin", ".virtualenv", "pytest"),
+        os.path.join(build.root, ".virtualenv", "bin", "pytest"),
         os.path.join(build.root, "tests"),
     ] + build.options.args)
     build.executables.run([
