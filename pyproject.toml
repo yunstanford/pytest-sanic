@@ -5,10 +5,12 @@ description = "a pytest plugin for Sanic"
 authors = ["Yun Xu <yunxu1992@gmail.com>"]
 license = "MIT"
 readme = "README.rst"
-
 homepage = "https://github.com/yunstanford/pytest-sanic"
 repository = "https://github.com/yunstanford/pytest-sanic"
 documentation = "https://pytest-sanic.readthedocs.io/en/latest/"
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
 
 [tool.poetry.dependencies]
 python = "^3.6"
