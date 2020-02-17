@@ -7,7 +7,7 @@ pytest-sanic
     :stub-columns: 1
 
     * - Build
-      - | |travis| |coverage|
+      - | |travis|
     * - Docs
       - |docs|
     * - Package
@@ -16,10 +16,6 @@ pytest-sanic
 .. |travis| image:: https://travis-ci.org/yunstanford/pytest-sanic.svg?branch=master
     :alt: Travis-CI Build Status
     :target: https://travis-ci.org/yunstanford/pytest-sanic
-
-.. |coverage| image:: https://coveralls.io/repos/github/yunstanford/pytest-sanic/badge.svg?branch=master
-    :alt: coverage status
-    :target: https://coveralls.io/github/yunstanford/pytest-sanic?branch=master
 
 .. |docs| image:: https://readthedocs.org/projects/pytest-sanic/badge/?style=flat
     :target: https://readthedocs.org/projects/pytest-sanic
