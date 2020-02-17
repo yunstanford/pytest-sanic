@@ -3,7 +3,8 @@ language: python
 python:
     - "3.8"
 install:
+    - pip install poetry
     - pip install coveralls
-script: "./uranium test"
+script: poetry install && poetry run pytest ./tests --cov pytest_sanic
 after_success:
     coveralls
