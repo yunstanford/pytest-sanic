@@ -14,12 +14,12 @@ def test(build):
     build.packages.install("sanic")
     build.packages.install("radon")
     build.packages.install("coverage")
-    build.packages.install("asynctest")
-    build.packages.install("websockets", version=">=6.0,<7.0")
+    build.packages.install("websockets", version=">=7.0,<9.0")
     build.executables.run([
         "coverage", "run", "--append",
         "--source=pytest_sanic",
-        "./bin/pytest", "./tests",
+        os.path.join(build.root, ".virtualenv", "bin", "pytest"),
+        os.path.join(build.root, "tests"),
     ] + build.options.args)
     build.executables.run([
         "coverage", "report", "-m"

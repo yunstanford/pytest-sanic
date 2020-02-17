@@ -1,6 +1,6 @@
 import pytest
-import asynctest
 import asyncio
+
 from unittest import mock
 from async_generator import async_generator, yield_
 
@@ -18,13 +18,15 @@ async def async_fixture_sleep():
 
 @pytest.fixture
 async def async_fixture():
-	client = mock.Mock()
-	client.assume_role = asynctest.CoroutineMock(return_value={"foo": "bar"})
-	return await client.assume_role()
+    client = mock.Mock()
+    future = asyncio.Future()
+    future.set_result({"foo": "bar"})
+    client.assume_role.return_value = future
+    return await client.assume_role()
 
 
 async def test_async_fixture(async_fixture):
-	assert async_fixture == {"foo": "bar"}
+    assert async_fixture == {"foo": "bar"}
 
 
 @pytest.fixture
