@@ -109,7 +109,7 @@ version = "2.4"
 immutables = ">=0.9"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Code coverage measurement for Python"
 name = "coverage"
 optional = false
@@ -324,7 +324,7 @@ checkqa-mypy = ["mypy (v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Pytest plugin for measuring coverage."
 name = "pytest-cov"
 optional = false
@@ -462,7 +462,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "1cf6116e31dd3debaebf599ae6688dafb7cf3eb6c9987d3f387835e02b3956a4"
+content-hash = "26e511632e1a41c379cfd913c7b005e3b043b35a35e6af25ef628e9f87f78a29"
 python-versions = "^3.6"
 
 [metadata.files]
