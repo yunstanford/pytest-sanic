@@ -1,9 +1,11 @@
+import socket
+import asyncio
+import warnings
+
 from aiohttp import ClientSession, CookieJar
 from sanic.server import serve, HttpProtocol
 from inspect import isawaitable
 from sanic.app import Sanic
-import socket
-import asyncio
 
 
 HEAD = 'HEAD'
@@ -40,8 +42,12 @@ class TestServer:
                  **kwargs):
         if not isinstance(app, Sanic):
             raise TypeError("app should be a Sanic application.")
+        if loop:
+            warnings.warn("passing through `loop` is deprecated.",
+                          DeprecationWarning,
+                          stacklevel=2)
         self.app = app
-        self.loop = loop
+        self.loop = loop or asyncio.get_event_loop()
         self.host = host
         self.protocol = protocol or HttpProtocol
         self.backlog = backlog
@@ -67,9 +73,7 @@ class TestServer:
         self.closed = None
         self.is_running = False
 
-    async def start_server(self, loop=None):
-        if loop:
-            self.loop = loop
+    async def start_server(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind((self.host, 0))
         self.port = self.socket.getsockname()[1]
@@ -128,7 +132,7 @@ class TestServer:
                     coros.append(conn.websocket.close_connection())
                 else:
                     conn.close()
-            await asyncio.gather(*coros, loop=self.loop)
+            await asyncio.gather(*coros)
 
             # Trigger after_stop events
             await trigger_events(self.after_server_stop, self.loop)
@@ -167,8 +171,13 @@ class TestClient:
                  **kwargs):
         if not isinstance(app, Sanic):
             raise TypeError("app should be a Sanic application.")
+
+        if loop:
+            warnings.warn("passing through `loop` is deprecated.",
+                          DeprecationWarning,
+                          stacklevel=2)
         self._app = app
-        self._loop = loop
+        self._loop = loop or asyncio.get_event_loop()
         # we should use '127.0.0.1' in most cases.
         self._host = host
         self._ssl = ssl
@@ -214,7 +223,7 @@ class TestClient:
         """
         Start a TestServer that running Sanic application.
         """
-        await self._server.start_server(loop=self._loop)
+        await self._server.start_server()
 
     async def close(self):
         """

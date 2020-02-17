@@ -176,7 +176,7 @@ def test_server(loop):
     servers = []
 
     async def create_server(app, **kwargs):
-        server = TestServer(app, loop=loop, **kwargs)
+        server = TestServer(app, **kwargs)
         await server.start_server()
         servers.append(server)
         return server
@@ -199,7 +199,7 @@ def sanic_client(loop):
     clients = []
 
     async def create_client(app, **kwargs):
-        client = TestClient(app, loop=loop, **kwargs)
+        client = TestClient(app, **kwargs)
         await client.start_server()
         clients.append(client)
         return client
@@ -220,7 +220,7 @@ def test_client(loop):
     clients = []
 
     async def create_client(app, **kwargs):
-        client = TestClient(app, loop=loop, **kwargs)
+        client = TestClient(app, **kwargs)
         await client.start_server()
         clients.append(client)
         return client
