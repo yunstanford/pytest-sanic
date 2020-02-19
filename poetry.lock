@@ -153,7 +153,7 @@ description = "Chromium HSTS Preload list as a Python package and updated daily"
 name = "hstspreload"
 optional = false
 python-versions = ">=3.6"
-version = "2020.2.15"
+version = "2020.2.19"
 
 [[package]]
 category = "dev"
@@ -561,7 +561,7 @@ hpack = [
     {file = "hpack-3.0.0.tar.gz", hash = "sha256:8eec9c1f4bfae3408a3f30500261f7e6a65912dc138526ea054f9ad98892e9d2"},
 ]
 hstspreload = [
-    {file = "hstspreload-2020.2.15.tar.gz", hash = "sha256:cfe1e9f4f01a787b8796e86fb60ff410364f46c7e854bd6270acdddb04ce1650"},
+    {file = "hstspreload-2020.2.19.tar.gz", hash = "sha256:af8b394d2c9613cdabd8a6994c811f4d9f4b2f5ec77933f11603f89f9b794e92"},
 ]
 httptools = [
     {file = "httptools-0.1.1-cp35-cp35m-macosx_10_13_x86_64.whl", hash = "sha256:a2719e1d7a84bb131c4f1e0cb79705034b48de6ae486eb5297a139d6a3296dce"},

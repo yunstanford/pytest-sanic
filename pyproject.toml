@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-sanic"
-version = "1.5.0"
+version = "1.6.0"
 description = "a pytest plugin for Sanic"
 authors = ["Yun Xu <yunxu1992@gmail.com>"]
 license = "MIT"
