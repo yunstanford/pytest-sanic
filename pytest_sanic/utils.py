@@ -177,7 +177,6 @@ class TestClient:
                           DeprecationWarning,
                           stacklevel=2)
         self._app = app
-        self._loop = loop or asyncio.get_event_loop()
         # we should use '127.0.0.1' in most cases.
         self._host = host
         self._ssl = ssl
@@ -185,7 +184,7 @@ class TestClient:
         self._protocol = HttpProtocol if protocol is None else protocol
         self._closed = False
         self._server = TestServer(
-                    self._app, loop=self._loop,
+                    self._app, loop=loop,
                     protocol=self._protocol, ssl=self._ssl,
                     scheme=self._scheme)
         cookie_jar = CookieJar(unsafe=True)
