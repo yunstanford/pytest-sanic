@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pytest-sanic"
-version = "1.6.1"
+version = "1.6.2"
 description = "a pytest plugin for Sanic"
 authors = ["Yun Xu <yunxu1992@gmail.com>"]
 license = "MIT"
@@ -14,12 +14,12 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
-pytest = "^5.2"
+pytest = ">=5.2"
 async_generator = "^1.10"
 aiohttp = "^3.6.2"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.3.5"
+pytest = ">=5.3.5"
 sanic = "^19.12.2"
 pytest-cov = "^2.8.1"
 
