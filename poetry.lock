@@ -359,7 +359,7 @@ python-versions = "*"
 version = "0.14.0"
 
 [[package]]
-category = "dev"
+category = "main"
 description = "An implementation of the WebSocket Protocol (RFC 6455 & 7692)"
 name = "websockets"
 optional = false
@@ -380,7 +380,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "jaraco.test (>=3.2.0)", "jaraco.itertools", "func-timeout", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [metadata]
-content-hash = "3d49a5c1544d24522c14201134495571044363ec09986f07578f9f41f52a72ec"
+content-hash = "84f1ddabf9e4a70eacfb0711d7bf0b0f8047d9612e6449133a1dd91506739046"
 python-versions = "^3.6.1"
 
 [metadata.files]

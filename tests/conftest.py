@@ -1,12 +1,14 @@
 import sanic
 import asyncio
 import pytest
+
 from sanic.app import Sanic
 from sanic.websocket import WebSocketProtocol
 from sanic import response
 
 
 collect_ignore = []
+Sanic.test_mode = True
 
 if sanic.__version__ <= '0.6.0':
     collect_ignore.append("test_client_websocket.py")

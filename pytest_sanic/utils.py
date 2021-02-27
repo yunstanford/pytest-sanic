@@ -1,8 +1,9 @@
 import socket
 import asyncio
 import warnings
+import httpx
+import websockets
 
-from aiohttp import ClientSession, CookieJar
 from sanic.server import serve, HttpProtocol
 from inspect import isawaitable
 from sanic.app import Sanic
@@ -187,9 +188,7 @@ class TestClient:
                     self._app, loop=loop,
                     protocol=self._protocol, ssl=self._ssl,
                     scheme=self._scheme)
-        cookie_jar = CookieJar(unsafe=True)
-        self._session = ClientSession(cookie_jar=cookie_jar,
-                                      **kwargs)
+        self._session = httpx.AsyncClient(**kwargs)
         # Let's collect responses objects and websocket objects,
         # and clean up when test is done.
         self._responses = []
@@ -233,7 +232,7 @@ class TestClient:
                 resp.close()
             for ws in self._websockets:
                 await ws.close()
-            await self._session.close()
+            await self._session.aclose()
             await self._server.close()
             self._closed = True
 
@@ -269,11 +268,9 @@ class TestClient:
     async def ws_connect(self, uri, *args, **kwargs):
         """
         Create a websocket connection.
-
-        a thin wrapper around aiohttp.ClientSession.ws_connect.
         """
         url = self._server.make_url(uri)
-        ws_conn = await self._session.ws_connect(
+        ws_conn = await websockets.connect(url, *args, **kwargs)(
                 url, *args, **kwargs
             )
         # Save it, clean up later.

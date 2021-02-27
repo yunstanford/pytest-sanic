@@ -1,4 +1,3 @@
-from aiohttp.web import Application
 import pytest
 
 
@@ -19,6 +18,9 @@ async def test_fixture_test_server_close(sanic_server):
 
 
 async def test_fixture_test_server_raise_exception_for_non_sanic_app(test_server):
-    aiohttp_web = Application()
+
+    class SimpleApplication:
+        pass
+
     with pytest.raises(TypeError):
-        await test_server(aiohttp_web)
+        await test_server(SimpleApplication())
