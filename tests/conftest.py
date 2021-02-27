@@ -72,4 +72,10 @@ def sanic_server(loop, app, test_server):
 
 @pytest.fixture
 def test_cli(loop, app, sanic_client):
-    return loop.run_until_complete(sanic_client(app, protocol=WebSocketProtocol))
+    return loop.run_until_complete(sanic_client(app))
+
+
+@pytest.fixture
+def test_cli_ws(loop, app, sanic_client):
+    return loop.run_until_complete(sanic_client(app, scheme='ws', protocol=WebSocketProtocol))
+

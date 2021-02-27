@@ -270,9 +270,7 @@ class TestClient:
         Create a websocket connection.
         """
         url = self._server.make_url(uri)
-        ws_conn = await websockets.connect(url, *args, **kwargs)(
-                url, *args, **kwargs
-            )
+        ws_conn = await websockets.connect(url, *args, **kwargs)
         # Save it, clean up later.
         self._websockets.append(ws_conn)
         return ws_conn
