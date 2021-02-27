@@ -8,8 +8,9 @@ README_PATH = os.path.join(base, "README.rst")
 
 install_requires = [
     'pytest>=5.2',
-    'httpx>=0.16',
+    'httpx>=0.15.4',
     'async_generator>=1.10',
+    'websockets>=8.1,<9.0',
 ]
 
 tests_require = []
