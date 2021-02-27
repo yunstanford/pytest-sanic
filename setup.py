@@ -7,15 +7,16 @@ base = os.path.dirname(os.path.abspath(__file__))
 README_PATH = os.path.join(base, "README.rst")
 
 install_requires = [
-    'pytest',
-    'aiohttp',
-    'async_generator',
+    'pytest>=5.2',
+    'httpx>=0.15.4',
+    'async_generator>=1.10',
+    'websockets>=8.1,<9.0',
 ]
 
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='1.6.1',
+      version='1.7.0',
       description='a pytest plugin for Sanic',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
@@ -32,7 +33,6 @@ setup(name='pytest-sanic',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',
           'Programming Language :: Python :: 3.7',
           'Programming Language :: Python :: 3.8',

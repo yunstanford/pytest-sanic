@@ -1,12 +1,14 @@
 import sanic
 import asyncio
 import pytest
+
 from sanic.app import Sanic
 from sanic.websocket import WebSocketProtocol
 from sanic import response
 
 
 collect_ignore = []
+Sanic.test_mode = True
 
 if sanic.__version__ <= '0.6.0':
     collect_ignore.append("test_client_websocket.py")
@@ -70,4 +72,10 @@ def sanic_server(loop, app, test_server):
 
 @pytest.fixture
 def test_cli(loop, app, sanic_client):
-    return loop.run_until_complete(sanic_client(app, protocol=WebSocketProtocol))
+    return loop.run_until_complete(sanic_client(app))
+
+
+@pytest.fixture
+def test_cli_ws(loop, app, sanic_client):
+    return loop.run_until_complete(sanic_client(app, scheme='ws', protocol=WebSocketProtocol))
+
