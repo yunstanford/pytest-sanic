@@ -7,9 +7,9 @@ base = os.path.dirname(os.path.abspath(__file__))
 README_PATH = os.path.join(base, "README.rst")
 
 install_requires = [
-    'pytest',
-    'aiohttp',
-    'async_generator',
+    'pytest>=5.2',
+    'httpx>=0.16',
+    'async_generator>=1.10',
 ]
 
 tests_require = []
@@ -32,7 +32,6 @@ setup(name='pytest-sanic',
           'License :: OSI Approved :: MIT License',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.5',
           'Programming Language :: Python :: 3.6',
           'Programming Language :: Python :: 3.7',
           'Programming Language :: Python :: 3.8',
