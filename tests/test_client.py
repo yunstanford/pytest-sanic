@@ -63,9 +63,8 @@ async def test_fixture_sanic_client_options(test_cli):
 async def test_fixture_sanic_client_head(test_cli):
     resp = await test_cli.head('/test_head')
     assert resp.status_code == 200
-    resp_json = resp.json()
     # HEAD should not have body
-    assert resp_json is None
+    assert resp.content == b""
 
 
 async def test_fixture_sanic_client_close(test_cli):
