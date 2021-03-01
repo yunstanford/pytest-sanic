@@ -55,6 +55,11 @@ You can find out more here:
 http://pytest-sanic.readthedocs.io/en/latest/
 
 
+Releases and change logs can be found here:
+
+https://github.com/yunstanford/pytest-sanic/releases
+
+
 -------
 Install
 -------

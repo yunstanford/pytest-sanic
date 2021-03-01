@@ -60,11 +60,11 @@ Here's much more realistic & useful example,
 
     async def test_index(test_cli):
         resp = await test_cli.get('/')
-        assert resp.status == 200
+        assert resp.status_code == 200
 
     async def test_player(test_cli):
         resp = await test_cli.get('/player')
-        assert resp.status == 200
+        assert resp.status_code == 200
 
 
 Contents:

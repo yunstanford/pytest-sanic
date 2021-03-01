@@ -121,8 +121,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         GET request
         """
         resp = await test_cli.get('/test_get')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         assert resp_json == {"GET": True}
 
     async def test_fixture_test_client_post(test_cli):
@@ -130,8 +130,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         POST request
         """
         resp = await test_cli.post('/test_post')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         assert resp_json == {"POST": True}
 
     async def test_fixture_test_client_put(test_cli):
@@ -139,8 +139,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         PUT request
         """
         resp = await test_cli.put('/test_put')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         assert resp_json == {"PUT": True}
 
     async def test_fixture_test_client_delete(test_cli):
@@ -148,8 +148,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         DELETE request
         """
         resp = await test_cli.delete('/test_delete')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         assert resp_json == {"DELETE": True}
 
     async def test_fixture_test_client_patch(test_cli):
@@ -157,8 +157,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         PATCH request
         """
         resp = await test_cli.patch('/test_patch')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         assert resp_json == {"PATCH": True}
 
     async def test_fixture_test_client_options(test_cli):
@@ -166,8 +166,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         OPTIONS request
         """
         resp = await test_cli.options('/test_options')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         assert resp_json == {"OPTIONS": True}
 
     async def test_fixture_test_client_head(test_cli):
@@ -175,8 +175,8 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         HEAD request
         """
         resp = await test_cli.head('/test_head')
-        assert resp.status == 200
-        resp_json = await resp.json()
+        assert resp.status_code == 200
+        resp_json = resp.json()
         # HEAD should not have body
         assert resp_json is None
 
@@ -186,9 +186,9 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         """
         ws_conn = await test_cli.ws_connect('/test_ws')
         data = 'hello world!'
-        await ws_conn.send_str(data)
-        msg = await ws_conn.receive()
-        assert msg.data == data
+        await ws_conn.send(data)
+        msg = await ws_conn.recv()
+        assert msg == data
         await ws_conn.close()
 
 
