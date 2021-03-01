@@ -315,9 +315,9 @@ Creates a TestClient instance by giving a ``Sanic`` application. You can simply 
         """
         ws_conn = await test_cli.ws_connect('/test_ws')
         data = 'hello world!'
-        await ws_conn.send_str(data)
-        msg = await ws_conn.receive()
-        assert msg.data == data
+        await ws_conn.send(data)
+        msg = await ws_conn.recv()
+        assert msg == data
         await ws_conn.close()
 
 
