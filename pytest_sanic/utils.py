@@ -232,7 +232,7 @@ class TestClient:
         """
         if not self._closed:
             for resp in self._responses:
-                resp.close()
+                await resp.aclose()
             for ws in self._websockets:
                 await ws.close()
             await self._session.aclose()
