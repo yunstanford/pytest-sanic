@@ -67,6 +67,13 @@ async def test_fixture_sanic_client_head(test_cli):
     assert resp.content == b""
 
 
+async def test_fixture_sanic_client_blueprint_get(test_cli):
+    resp = await test_cli.get('/bp_group/bp_route/test_get')
+    assert resp.status_code == 200
+    resp_json = resp.json()
+    assert resp_json == {"blueprint": "get"}
+
+
 async def test_fixture_sanic_client_close(test_cli):
     resp = await test_cli.get('/test_get')
     assert resp.status_code == 200

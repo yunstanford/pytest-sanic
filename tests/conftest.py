@@ -2,7 +2,8 @@ import sanic
 import asyncio
 import pytest
 
-from sanic.app import Sanic
+from sanic import Sanic
+from sanic import Blueprint
 from sanic.websocket import WebSocketProtocol
 from sanic import response
 
@@ -58,9 +59,20 @@ def app():
     async def test_get(request):
         return response.json({"headers": dict(request.headers)})
 
-    @app.listener('before_server_start')
+    @app.listener("before_server_start")
     async def mock_init_db(app, loop):
         await asyncio.sleep(0.01)
+
+    # For Blueprint Group
+    bp = Blueprint("blueprint_route", url_prefix="/bp_route")
+
+    @bp.route("/test_get")
+    async def bp_root(request):
+        return response.json({"blueprint": "get"})
+
+    bp_group = Blueprint.group(bp, url_prefix="/bp_group")
+
+    app.blueprint(bp_group)
 
     yield app
 
