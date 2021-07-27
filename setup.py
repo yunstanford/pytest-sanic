@@ -10,13 +10,13 @@ install_requires = [
     'pytest>=5.2',
     'httpx>=0.15.4',
     'async_generator>=1.10',
-    'websockets>=8.1,<9.0',
+    'websockets>=9.1,<10.0',
 ]
 
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='1.7.1',
+      version='1.8.1',
       description='a pytest plugin for Sanic',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
