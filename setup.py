@@ -10,7 +10,7 @@ install_requires = [
     'pytest>=5.2',
     'httpx>=0.15.4',
     'async_generator>=1.10',
-    'websockets>=9.1,<10.0',
+    'websockets>=9.1,<11.0',
 ]
 
 tests_require = []
