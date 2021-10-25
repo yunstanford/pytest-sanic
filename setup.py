@@ -16,7 +16,7 @@ install_requires = [
 tests_require = []
 
 setup(name='pytest-sanic',
-      version='1.8.1',
+      version='1.9.1',
       description='a pytest plugin for Sanic',
       long_description=open(README_PATH).read(),
       author='Yun Xu',
