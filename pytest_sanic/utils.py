@@ -100,6 +100,8 @@ class TestServer:
         server_settings.pop("main_start", None)
         server_settings.pop("main_stop", None)
 
+        await self.app._startup()
+
         # Trigger before_start events
         await trigger_events(self.before_server_start, self.loop)
 
